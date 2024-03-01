@@ -1,0 +1,1 @@
+## Go (Brettspiel) in Scala ##
