@@ -46,7 +46,8 @@ object SimpleList extends App:
     if(list == null) false
     else if(list.entry.contains(item)) true
     else slContains(list.next,item)
-
+  
+  //print SimpleList
   def printL[A](list: SimpleList[A]): Unit =
     if(list == null || list.next == null) println("Empty")
     var pointer = list.next
@@ -54,6 +55,7 @@ object SimpleList extends App:
       if pointer.entry.isDefined then println(pointer.entry.get)
       pointer = pointer.next
 
+  //get element by index
   def slGet[A](list: SimpleList[A])(index: Int): A =
     if list == null then throw Exception("List is Null")
     var i = 0
@@ -67,11 +69,13 @@ object SimpleList extends App:
     if(p == null || p.entry.isEmpty) throw Exception("Element is Empty or Null")
     else return p.entry.get
 
+  //delete element by index
   def slDel[A](list: SimpleList[A], index: Int): Unit =
     var p = list
     for i <- 0 until index do p = p.next
     p.next = p.next.next
 
+  //delete element by address
   def slDel[A](list: SimpleList[A], el: SimpleList[A]): Unit =
     var p = list
     while p != null do
@@ -79,7 +83,8 @@ object SimpleList extends App:
         p.next = el.next
         return;
       p = p.next
-
+      
+  //loop over all elements and apply passed function
   def loopFunc[A](list: SimpleList[A], f: (x: A)=>Unit): Unit =
     var p = list.next
     while p != null do

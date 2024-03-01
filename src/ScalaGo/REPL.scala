@@ -5,7 +5,6 @@ import ScalaGo.Color.*
 import ScalaGo.FieldContent.*
 
 import scala.io.StdIn
-import SimpleList.*
 
 object REPL:
 
@@ -24,21 +23,18 @@ object REPL:
         println(e.getMessage)
         repl(endState)
     
-    
+    while gs != endState do {
+      val input = scala.io.StdIn.readLine("Set position / pass: ")
 
-    while gs != endState
-    do
-        val input = scala.io.StdIn.readLine("Set position / pass: ")
-        
-        var set = false
-        for i <- gs.transitions.indices do
-          if(gs.transitions(i)._1(input))
-            gs = gs.transitions(i)._2
-            gs.startAction()
-            set = true
+      var set = false
+      for i <- gs.transitions.indices do
+        if (gs.transitions(i)._1(input))
+          gs = gs.transitions(i)._2
+          gs.startAction()
+          set = true
 
-        if(!set) println("Ungültige Eingabe")
-
+      if (!set) println("Ungültige Eingabe")
+    }
 
 
   /**
@@ -57,7 +53,7 @@ object REPL:
 
   /**
     * Return a String displaying the current state of the board. If the previous board is supplied it is used to
-    * deterhmine differences between the boards to higlight them.
+    * determine differences between the boards to highlight them.
     *
     * @param b board to return as string
     * @param prev previous board to highlight differences
@@ -104,6 +100,12 @@ object REPL:
   def printBoard(b: Goboard, pB: Goboard): Unit =
     println(getFieldString(b, pB))
 
+  /**
+   * Get Color-String
+   *
+   * @param c color to convert
+   * @return returns the color as a string
+   */
   def getColorString(c: Color): String =
     c match
       case White => "White"
